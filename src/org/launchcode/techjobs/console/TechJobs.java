@@ -11,7 +11,7 @@ public class TechJobs {
 
     private static Scanner in = new Scanner(System.in);
 
-    public static void main (String[] args) {
+    public static void main(String[] args) {
 
         // Initialize our field map with key/name pairs
         HashMap<String, String> columnChoices = new HashMap<>();
@@ -103,14 +103,37 @@ public class TechJobs {
                 validChoice = true;
             }
 
-        } while(!validChoice);
+        } while (!validChoice);
 
         return choiceKeys[choiceIdx];
     }
 
     // Print a list of jobs
     private static void printJobs(ArrayList<HashMap<String, String>> someJobs) {
+        // write an if statement: job request is a match
+//        for (String job : alljobs) {
+        if (someJobs.size()> 0) {
 
-        System.out.println("printJobs is not implemented yet");
+
+            for (HashMap<String, String> jobrow : someJobs) {
+//            for (String criteria : jobrow) {
+                String skill = jobrow.get("core competency");
+                String employer = jobrow.get("employer");
+                String location = jobrow.get("location");
+                String position = jobrow.get("position type");
+                String name = jobrow.get("name");
+
+                System.out.println("*****");
+                System.out.println("position type: " + position);
+                System.out.println("name: " + name);
+                System.out.println("employer: " + employer);
+                System.out.println("location: " + location);
+                System.out.println("core competency: " + skill);
+
+                System.out.println("*****");
+            }
+        } else {
+            System.out.println("No jobs match your criteria");
+        }
     }
 }
