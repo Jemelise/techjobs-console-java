@@ -3,6 +3,7 @@ package org.launchcode.techjobs.console;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
+import java.util.Set;
 
 /**
  * Created by LaunchCode
@@ -61,7 +62,8 @@ public class TechJobs {
                 String searchTerm = in.nextLine();
 
                 if (searchField.equals("all")) {
-                    System.out.println("Search all fields not yet implemented.");
+                    ArrayList<HashMap<String, String>> ajobs = JobData.findByValue(searchTerm);
+                    printJobs(ajobs);
                 } else {
                     printJobs(JobData.findByColumnAndValue(searchField, searchTerm));
                 }
@@ -110,27 +112,21 @@ public class TechJobs {
 
     // Print a list of jobs
     private static void printJobs(ArrayList<HashMap<String, String>> someJobs) {
-        // write an if statement: job request is a match
-//        for (String job : alljobs) {
+
         if (someJobs.size()> 0) {
 
+                for (HashMap<String, String> jobrow : someJobs) {
 
-            for (HashMap<String, String> jobrow : someJobs) {
-//            for (String criteria : jobrow) {
-                String skill = jobrow.get("core competency");
-                String employer = jobrow.get("employer");
-                String location = jobrow.get("location");
-                String position = jobrow.get("position type");
-                String name = jobrow.get("name");
+                    Set<String> columns = jobrow.keySet();
+                    System.out.println("*****");
 
-                System.out.println("*****");
-                System.out.println("position type: " + position);
-                System.out.println("name: " + name);
-                System.out.println("employer: " + employer);
-                System.out.println("location: " + location);
-                System.out.println("core competency: " + skill);
+                    for (String column : columns) {
+                        String aValue = jobrow.get(column);
 
-                System.out.println("*****");
+                        System.out.println(column + ": " + aValue);
+                    }
+                    System.out.println("*****");
+
             }
         } else {
             System.out.println("No jobs match your criteria");
